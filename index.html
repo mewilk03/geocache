@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unlocking Louisville Schools</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; }
+        .container { max-width: 600px; margin: auto; }
+        input, button { margin: 10px; padding: 10px; font-size: 16px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Unlocking Louisville Schools</h1>
+        <p>Type your answer to the clue below and press Submit.</p>
+        
+        <h2 id="clue">Clue will appear here</h2>
+        <input type="text" id="answer" placeholder="Enter your answer">
+        <button onclick="checkAnswer()">Submit</button>
+        
+        <p id="result"></p>
+    </div>
+
+    <script>
+        const locations = [
+            { clue: "Where decisions are made for students and staff, find the place that guides the district's path.", answer: "JCPS Central Office" },
+            { clue: "A school of excellence, known far and wide, where scholars and artists stand with pride.", answer: "duPont Manual High School" },
+            { clue: "Diversity and learning go hand in hand, at this school known across the land.", answer: "Atherton High School" },
+            { clue: "A school of champions, with history so grand, where a great boxer first took his stand.", answer: "Central High School" },
+            { clue: "Named for a leader, a school standing tall, with Bruins who strive to give their all.", answer: "Ballard High School" }
+        ];
+
+        let currentIndex = 0;
+
+        function loadClue() {
+            document.getElementById("clue").innerText = locations[currentIndex].clue;
+        }
+
+        function checkAnswer() {
+            let userAnswer = document.getElementById("answer").value.trim();
+            let correctAnswer = locations[currentIndex].answer;
+            
+            if (userAnswer.toLowerCase() === correctAnswer.toLowerCase()) {
+                document.getElementById("result").innerText = "Correct! Moving to next location.";
+                currentIndex++;
+                if (currentIndex < locations.length) {
+                    setTimeout(() => {
+                        document.getElementById("answer").value = "";
+                        document.getElementById("result").innerText = "";
+                        loadClue();
+                    }, 2000);
+                } else {
+                    document.getElementById("result").innerText = "Congratulations! You have completed the game.";
+                }
+            } else {
+                document.getElementById("result").innerText = "Incorrect, try again.";
+            }
+        }
+
+        window.onload = loadClue;
+    </script>
+</body>
+</html>
